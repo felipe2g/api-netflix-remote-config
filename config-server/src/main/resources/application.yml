@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/felipe2g/config-api-netflix
+
+server:
+  port: 8888

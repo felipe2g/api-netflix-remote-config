@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: eureka-client-newsletter
+  profiles:
+    active: prod
+  config:
+    import: optional:configserver:http://localhost:8888
+  data:
+    mongodb:
+      port: 27017
+      host: felipe2g.duckdns.org
+      database: newsletter
+  rabbitmq:
+    host: felipe2g.duckdns.org
+    port: 5672
+    username: guest
+    password: password
+server:
+  port: ${PORT:0}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+newletter:
+  rabbitmq:
+    queue: newsletter.queue
+    exchange: newsletter.exchange
+    routingKey: newsletter.news.routekey
+
+fire-base:
+  credential-file-name: firebase-account.json
+  token: "e0LVaLW4t1fSCNSTgllVTA:APA91bE4MtlZ5bkkRzLtiU4wWphFTFFE4B5qJs1xRXfd5HPfYqoC1nPtcqwMS8dmLUAd5eaSr_YkgGcDQvGWSqFWjKg3m5Y_QcMqvg4iIkCcdRSlI-rp4rnPaVKJetWuWB0B7wibTg0z"
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG

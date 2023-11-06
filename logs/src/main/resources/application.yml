@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: eureka-client-logs
+  profiles:
+    active: prod
+  config:
+    import: optional:configserver:http://localhost:8888
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: newsletter
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: password
+server:
+  port: ${PORT:0}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+newletter:
+  rabbitmq:
+    queue: newsletter.queue
+    exchange: newsletter.exchange
+    routingKey: newsletter.news.routekey
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG

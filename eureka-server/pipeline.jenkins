@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clean Package') {
+            steps {
+                mvn clean package
+            }
+        }
+        stage('Build & Test') {
+            steps {
+                docker build -t felipe2g/eureka-server:latest .
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Deploy your microservice to the desired environment
+                echo 'Deploy'
+            }
+        }
+    }
+}
